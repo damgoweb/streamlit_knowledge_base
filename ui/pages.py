@@ -4,7 +4,7 @@
 """
 import streamlit as st
 import json
-import pandas as pd
+# import pandas as pd  # 削除
 from pathlib import Path
 import sys
 from datetime import datetime
@@ -157,15 +157,22 @@ class Pages:
             st.subheader("📂 カテゴリ別分布")
             
             if stats.category_distribution:
-                # データフレーム作成
-                df = pd.DataFrame(
-                    list(stats.category_distribution.items()),
-                    columns=['カテゴリ', 'スニペット数']
+                # pandasを使わずに直接辞書を使用してバーチャート表示
+                # Streamlitのbar_chartは辞書も受け付ける
+                # ソートされた辞書を作成
+                sorted_categories = dict(
+                    sorted(stats.category_distribution.items(), 
+                           key=lambda x: x[1], 
+                           reverse=True)
                 )
-                df = df.sort_values('スニペット数', ascending=False)
                 
                 # バーチャート表示
-                st.bar_chart(df.set_index('カテゴリ'))
+                st.bar_chart(sorted_categories)
+                
+                # または、より詳細な表示が必要な場合は以下を使用
+                # for category, count in sorted_categories.items():
+                #     st.write(f"**{category}**: {count}件")
+                #     st.progress(count / max(sorted_categories.values()))
             else:
                 st.info("データがありません")
         
