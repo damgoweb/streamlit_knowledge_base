@@ -1,0 +1,399 @@
+{
+  "version": "1.0.0",
+  "exported_at": "2024-01-09T12:00:00",
+  "total_count": 50,
+  "snippets": [
+    {
+      "title": "Python list comprehension basic",
+      "content": "# 基本的なリスト内包表記\nevens = [x for x in range(100) if x % 2 == 0]\nsquares = [x**2 for x in range(10)]\nfiltered = [x for x in data if x > 0]",
+      "category": "Python",
+      "tags": "list, comprehension, filter, basic",
+      "description": "リスト内包表記の基本パターン",
+      "language": "python"
+    },
+    {
+      "title": "Python dictionary operations",
+      "content": "# 辞書の操作\n# マージ (Python 3.9+)\nmerged = dict1 | dict2\n\n# 値でソート\nsorted_dict = dict(sorted(d.items(), key=lambda x: x[1]))\n\n# キーの存在確認と取得\nvalue = my_dict.get('key', 'default_value')\n\n# 辞書内包表記\nsquares = {x: x**2 for x in range(10)}",
+      "category": "Python",
+      "tags": "dictionary, dict, sort, merge",
+      "description": "辞書操作の便利なパターン",
+      "language": "python"
+    },
+    {
+      "title": "Python file read write",
+      "content": "# ファイル読み書き\n# 読み込み\nwith open('file.txt', 'r', encoding='utf-8') as f:\n    content = f.read()\n    # または行ごと\n    lines = f.readlines()\n\n# 書き込み\nwith open('output.txt', 'w', encoding='utf-8') as f:\n    f.write('Hello World')\n    # または複数行\n    f.writelines(['line1\\n', 'line2\\n'])",
+      "category": "Python",
+      "tags": "file, io, read, write",
+      "description": "ファイルの読み書き基本パターン",
+      "language": "python"
+    },
+    {
+      "title": "Python JSON handling",
+      "content": "import json\n\n# JSONファイル読み込み\nwith open('data.json', 'r', encoding='utf-8') as f:\n    data = json.load(f)\n\n# JSONファイル書き込み\nwith open('output.json', 'w', encoding='utf-8') as f:\n    json.dump(data, f, ensure_ascii=False, indent=2)\n\n# 文字列との変換\njson_str = json.dumps(data, ensure_ascii=False)\ndata = json.loads(json_str)",
+      "category": "Python",
+      "tags": "json, file, parse, serialize",
+      "description": "JSON データの読み書きと変換",
+      "language": "python"
+    },
+    {
+      "title": "Python CSV operations",
+      "content": "import csv\n\n# CSV読み込み\nwith open('data.csv', 'r', encoding='utf-8') as f:\n    reader = csv.DictReader(f)\n    data = list(reader)\n\n# CSV書き込み\nwith open('output.csv', 'w', encoding='utf-8', newline='') as f:\n    fieldnames = ['name', 'age', 'city']\n    writer = csv.DictWriter(f, fieldnames=fieldnames)\n    writer.writeheader()\n    writer.writerows(data)",
+      "category": "Python",
+      "tags": "csv, file, read, write",
+      "description": "CSVファイルの読み書き",
+      "language": "python"
+    },
+    {
+      "title": "Python datetime operations",
+      "content": "from datetime import datetime, timedelta, timezone\n\n# 現在時刻\nnow = datetime.now()\ntoday = datetime.today()\n\n# フォーマット\ndate_str = now.strftime('%Y-%m-%d %H:%M:%S')\n\n# パース\ndt = datetime.strptime('2024-01-09', '%Y-%m-%d')\n\n# 計算\ntomorrow = now + timedelta(days=1)\nlast_week = now - timedelta(weeks=1)\n\n# タイムゾーン\njst = timezone(timedelta(hours=9))\njst_now = datetime.now(jst)",
+      "category": "Python",
+      "tags": "datetime, date, time, timezone",
+      "description": "日付時刻の操作",
+      "language": "python"
+    },
+    {
+      "title": "Python regex patterns",
+      "content": "import re\n\n# 基本的なパターンマッチ\npattern = r'\\d{3}-\\d{4}-\\d{4}'  # 電話番号\nif re.match(pattern, text):\n    print('Match found')\n\n# 検索と抽出\nmatches = re.findall(r'\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b', text)  # Email\n\n# 置換\nresult = re.sub(r'\\s+', ' ', text)  # 連続する空白を1つに\n\n# グループ抽出\nmatch = re.search(r'(\\d{4})-(\\d{2})-(\\d{2})', date_string)\nif match:\n    year, month, day = match.groups()",
+      "category": "Python",
+      "tags": "regex, pattern, match, search",
+      "description": "正規表現パターン集",
+      "language": "python"
+    },
+    {
+      "title": "Python exception handling",
+      "content": "# 基本的な例外処理\ntry:\n    result = risky_operation()\nexcept ValueError as e:\n    print(f'値エラー: {e}')\nexcept (TypeError, AttributeError) as e:\n    print(f'型またはプロパティエラー: {e}')\nexcept Exception as e:\n    print(f'予期しないエラー: {e}')\n    raise  # 再スロー\nelse:\n    print('成功')\nfinally:\n    print('クリーンアップ処理')",
+      "category": "Python",
+      "tags": "exception, error, try, catch",
+      "description": "例外処理のパターン",
+      "language": "python"
+    },
+    {
+      "title": "Python decorator basic",
+      "content": "import functools\nimport time\n\n# 基本的なデコレータ\ndef timer(func):\n    @functools.wraps(func)\n    def wrapper(*args, **kwargs):\n        start = time.time()\n        result = func(*args, **kwargs)\n        end = time.time()\n        print(f'{func.__name__} took {end-start:.4f} seconds')\n        return result\n    return wrapper\n\n@timer\ndef slow_function():\n    time.sleep(1)\n    return 'Done'",
+      "category": "Python",
+      "tags": "decorator, wrapper, timer",
+      "description": "デコレータの基本実装",
+      "language": "python"
+    },
+    {
+      "title": "Python class with properties",
+      "content": "class Person:\n    def __init__(self, name, age):\n        self._name = name\n        self._age = age\n    \n    @property\n    def name(self):\n        return self._name\n    \n    @property\n    def age(self):\n        return self._age\n    \n    @age.setter\n    def age(self, value):\n        if value < 0:\n            raise ValueError('Age cannot be negative')\n        self._age = value\n    \n    def __str__(self):\n        return f'Person(name={self.name}, age={self.age})'",
+      "category": "Python",
+      "tags": "class, property, getter, setter",
+      "description": "プロパティ付きクラスの実装",
+      "language": "python"
+    },
+    {
+      "title": "Python async await basic",
+      "content": "import asyncio\n\nasync def fetch_data(url):\n    print(f'Fetching {url}')\n    await asyncio.sleep(1)  # Simulate network delay\n    return f'Data from {url}'\n\nasync def main():\n    # 並行実行\n    tasks = [fetch_data(f'url{i}') for i in range(3)]\n    results = await asyncio.gather(*tasks)\n    print(results)\n\n# 実行\nasyncio.run(main())",
+      "category": "Python",
+      "tags": "async, await, asyncio, concurrent",
+      "description": "非同期処理の基本",
+      "language": "python"
+    },
+    {
+      "title": "Python logging setup",
+      "content": "import logging\n\n# ロガー設定\nlogging.basicConfig(\n    level=logging.INFO,\n    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',\n    handlers=[\n        logging.FileHandler('app.log'),\n        logging.StreamHandler()\n    ]\n)\n\nlogger = logging.getLogger(__name__)\n\n# 使用例\nlogger.debug('Debug message')\nlogger.info('Info message')\nlogger.warning('Warning message')\nlogger.error('Error message')\nlogger.critical('Critical message')",
+      "category": "Python",
+      "tags": "logging, log, debug, error",
+      "description": "ロギングの設定",
+      "language": "python"
+    },
+    {
+      "title": "Python argparse CLI",
+      "content": "import argparse\n\nparser = argparse.ArgumentParser(description='CLI Tool')\nparser.add_argument('input', help='Input file path')\nparser.add_argument('-o', '--output', default='output.txt', help='Output file')\nparser.add_argument('-v', '--verbose', action='store_true', help='Verbose output')\nparser.add_argument('-n', '--number', type=int, default=10, help='Number of items')\n\nargs = parser.parse_args()\n\nprint(f'Input: {args.input}')\nprint(f'Output: {args.output}')\nif args.verbose:\n    print(f'Number: {args.number}')",
+      "category": "Python",
+      "tags": "argparse, cli, command line, arguments",
+      "description": "コマンドライン引数の処理",
+      "language": "python"
+    },
+    {
+      "title": "Python requests HTTP",
+      "content": "import requests\n\n# GET リクエスト\nresponse = requests.get('https://api.example.com/data')\ndata = response.json()\n\n# POST リクエスト\npayload = {'key': 'value'}\nresponse = requests.post('https://api.example.com/submit', json=payload)\n\n# ヘッダー付き\nheaders = {'Authorization': 'Bearer token'}\nresponse = requests.get('https://api.example.com/protected', headers=headers)\n\n# エラーハンドリング\ntry:\n    response.raise_for_status()\nexcept requests.exceptions.RequestException as e:\n    print(f'Request failed: {e}')",
+      "category": "Python",
+      "tags": "requests, http, api, rest",
+      "description": "HTTPリクエストの送信",
+      "language": "python"
+    },
+    {
+      "title": "Python pathlib operations",
+      "content": "from pathlib import Path\n\n# パス操作\ncurrent = Path.cwd()\nhome = Path.home()\n\n# ファイル/ディレクトリ操作\npath = Path('data/file.txt')\npath.parent.mkdir(parents=True, exist_ok=True)\n\n# 読み書き\npath.write_text('Hello World')\ncontent = path.read_text()\n\n# ファイル検索\nfor py_file in Path('.').glob('**/*.py'):\n    print(py_file)\n\n# パス情報\nif path.exists():\n    print(f'Size: {path.stat().st_size}')\n    print(f'Is file: {path.is_file()}')\n    print(f'Is dir: {path.is_dir()}')",
+      "category": "Python",
+      "tags": "pathlib, path, file, directory",
+      "description": "パス操作（pathlib）",
+      "language": "python"
+    },
+    {
+      "title": "Python dataclass example",
+      "content": "from dataclasses import dataclass, field\nfrom typing import List, Optional\n\n@dataclass\nclass Product:\n    name: str\n    price: float\n    tags: List[str] = field(default_factory=list)\n    description: Optional[str] = None\n    \n    def __post_init__(self):\n        if self.price < 0:\n            raise ValueError('Price cannot be negative')\n    \n    def add_tag(self, tag: str):\n        if tag not in self.tags:\n            self.tags.append(tag)\n    \n    def discount(self, percent: float):\n        self.price *= (1 - percent / 100)",
+      "category": "Python",
+      "tags": "dataclass, class, type hints",
+      "description": "データクラスの実装",
+      "language": "python"
+    },
+    {
+      "title": "Python context manager",
+      "content": "from contextlib import contextmanager\nimport time\n\n# クラスベース\nclass Timer:\n    def __enter__(self):\n        self.start = time.time()\n        return self\n    \n    def __exit__(self, *args):\n        self.elapsed = time.time() - self.start\n        print(f'Elapsed: {self.elapsed:.4f} seconds')\n\n# デコレータベース\n@contextmanager\ndef timer():\n    start = time.time()\n    try:\n        yield\n    finally:\n        elapsed = time.time() - start\n        print(f'Elapsed: {elapsed:.4f} seconds')\n\n# 使用例\nwith Timer():\n    time.sleep(1)",
+      "category": "Python",
+      "tags": "context manager, with, timer",
+      "description": "コンテキストマネージャーの実装",
+      "language": "python"
+    },
+    {
+      "title": "Python generator function",
+      "content": "def fibonacci(n):\n    \"\"\"フィボナッチ数列のジェネレータ\"\"\"\n    a, b = 0, 1\n    for _ in range(n):\n        yield a\n        a, b = b, a + b\n\n# 使用例\nfor num in fibonacci(10):\n    print(num)\n\n# ジェネレータ式\nsquares = (x**2 for x in range(10))\n\n# 無限ジェネレータ\ndef infinite_counter(start=0):\n    while True:\n        yield start\n        start += 1",
+      "category": "Python",
+      "tags": "generator, yield, iterator",
+      "description": "ジェネレータ関数の実装",
+      "language": "python"
+    },
+    {
+      "title": "Python enumerate zip",
+      "content": "# enumerate: インデックス付きループ\nfruits = ['apple', 'banana', 'orange']\nfor i, fruit in enumerate(fruits, start=1):\n    print(f'{i}. {fruit}')\n\n# zip: 複数のイテラブルを同時処理\nnames = ['Alice', 'Bob', 'Charlie']\nages = [25, 30, 35]\ncities = ['Tokyo', 'Osaka', 'Kyoto']\n\nfor name, age, city in zip(names, ages, cities):\n    print(f'{name} ({age}) from {city}')\n\n# zip_longest\nfrom itertools import zip_longest\nfor a, b in zip_longest([1, 2, 3], ['a', 'b'], fillvalue='-'):\n    print(f'{a}, {b}')",
+      "category": "Python",
+      "tags": "enumerate, zip, loop, iteration",
+      "description": "enumerate と zip の使い方",
+      "language": "python"
+    },
+    {
+      "title": "Python collections utilities",
+      "content": "from collections import defaultdict, Counter, deque, namedtuple\n\n# defaultdict: デフォルト値付き辞書\ndd = defaultdict(list)\ndd['key'].append('value')\n\n# Counter: 要素カウント\ncounter = Counter(['a', 'b', 'a', 'c', 'b', 'a'])\nprint(counter.most_common(2))  # [('a', 3), ('b', 2)]\n\n# deque: 両端キュー\ndq = deque(maxlen=3)\ndq.append(1)\ndq.appendleft(0)\ndq.rotate(1)  # 右に回転\n\n# namedtuple: 名前付きタプル\nPoint = namedtuple('Point', ['x', 'y'])\np = Point(11, y=22)\nprint(p.x, p.y)",
+      "category": "Python",
+      "tags": "collections, defaultdict, counter, deque",
+      "description": "collections モジュールの便利なクラス",
+      "language": "python"
+    },
+    {
+      "title": "Python functools utilities",
+      "content": "from functools import lru_cache, partial, reduce\nimport operator\n\n# lru_cache: メモ化\n@lru_cache(maxsize=128)\ndef fibonacci(n):\n    if n < 2:\n        return n\n    return fibonacci(n-1) + fibonacci(n-2)\n\n# partial: 部分適用\ndef multiply(x, y):\n    return x * y\n\ndouble = partial(multiply, 2)\nprint(double(5))  # 10\n\n# reduce: 畳み込み\nnumbers = [1, 2, 3, 4, 5]\nproduct = reduce(operator.mul, numbers)\nsum_val = reduce(operator.add, numbers)",
+      "category": "Python",
+      "tags": "functools, cache, partial, reduce",
+      "description": "functools の便利な関数",
+      "language": "python"
+    },
+    {
+      "title": "Python itertools combinations",
+      "content": "from itertools import combinations, permutations, product, chain\n\n# combinations: 組み合わせ\nfor combo in combinations('ABCD', 2):\n    print(combo)  # ('A', 'B'), ('A', 'C'), ...\n\n# permutations: 順列\nfor perm in permutations('ABC', 2):\n    print(perm)  # ('A', 'B'), ('A', 'C'), ('B', 'A'), ...\n\n# product: デカルト積\nfor item in product('AB', '12'):\n    print(item)  # ('A', '1'), ('A', '2'), ('B', '1'), ('B', '2')\n\n# chain: 連結\nfor item in chain('ABC', '123'):\n    print(item)  # A, B, C, 1, 2, 3",
+      "category": "Python",
+      "tags": "itertools, combinations, permutations, product",
+      "description": "itertools の組み合わせ関数",
+      "language": "python"
+    },
+    {
+      "title": "Python type hints advanced",
+      "content": "from typing import List, Dict, Optional, Union, Callable, TypeVar, Generic\n\n# 基本的な型ヒント\ndef greet(name: str) -> str:\n    return f'Hello, {name}'\n\n# 複雑な型\ndef process_data(items: List[Dict[str, Union[str, int]]]) -> Optional[str]:\n    if not items:\n        return None\n    return str(items[0])\n\n# Callable\ndef apply_function(func: Callable[[int], int], value: int) -> int:\n    return func(value)\n\n# TypeVar と Generic\nT = TypeVar('T')\n\nclass Stack(Generic[T]):\n    def __init__(self) -> None:\n        self._items: List[T] = []\n    \n    def push(self, item: T) -> None:\n        self._items.append(item)",
+      "category": "Python",
+      "tags": "type hints, typing, generic, callable",
+      "description": "高度な型ヒント",
+      "language": "python"
+    },
+    {
+      "title": "Python subprocess run",
+      "content": "import subprocess\n\n# 基本的なコマンド実行\nresult = subprocess.run(['ls', '-la'], capture_output=True, text=True)\nprint(result.stdout)\n\n# シェルコマンド実行\nresult = subprocess.run('echo $HOME', shell=True, capture_output=True, text=True)\n\n# エラーハンドリング\ntry:\n    result = subprocess.run(['false'], check=True)\nexcept subprocess.CalledProcessError as e:\n    print(f'Command failed with exit code {e.returncode}')\n\n# タイムアウト設定\ntry:\n    result = subprocess.run(['sleep', '10'], timeout=3)\nexcept subprocess.TimeoutExpired:\n    print('Command timed out')",
+      "category": "Python",
+      "tags": "subprocess, shell, command, process",
+      "description": "外部コマンドの実行",
+      "language": "python"
+    },
+    {
+      "title": "Python threading basic",
+      "content": "import threading\nimport time\n\ndef worker(name, delay):\n    print(f'Worker {name} starting')\n    time.sleep(delay)\n    print(f'Worker {name} done')\n\n# スレッド作成と実行\nthreads = []\nfor i in range(3):\n    t = threading.Thread(target=worker, args=(f'Thread-{i}', i+1))\n    threads.append(t)\n    t.start()\n\n# 全スレッドの完了を待つ\nfor t in threads:\n    t.join()\n\nprint('All threads completed')",
+      "category": "Python",
+      "tags": "threading, thread, concurrent, parallel",
+      "description": "スレッドの基本",
+      "language": "python"
+    },
+    {
+      "title": "Python multiprocessing pool",
+      "content": "from multiprocessing import Pool, cpu_count\nimport time\n\ndef process_item(item):\n    \"\"\"CPU集約的な処理\"\"\"\n    time.sleep(0.1)\n    return item ** 2\n\n# プロセスプールで並列処理\nif __name__ == '__main__':\n    items = range(20)\n    \n    with Pool(processes=cpu_count()) as pool:\n        # map: 順序保持\n        results = pool.map(process_item, items)\n        \n        # map_async: 非同期\n        async_result = pool.map_async(process_item, items)\n        results = async_result.get()\n    \n    print(f'Results: {results}')",
+      "category": "Python",
+      "tags": "multiprocessing, pool, parallel, cpu",
+      "description": "マルチプロセシングでの並列処理",
+      "language": "python"
+    },
+    {
+      "title": "Python pickle serialize",
+      "content": "import pickle\n\n# オブジェクトのシリアライズ\ndata = {\n    'name': 'Alice',\n    'scores': [90, 85, 88],\n    'metadata': {'level': 5, 'rank': 'A'}\n}\n\n# ファイルに保存\nwith open('data.pkl', 'wb') as f:\n    pickle.dump(data, f)\n\n# ファイルから読み込み\nwith open('data.pkl', 'rb') as f:\n    loaded_data = pickle.load(f)\n\n# バイト列との変換\nbytes_data = pickle.dumps(data)\nrestored_data = pickle.loads(bytes_data)",
+      "category": "Python",
+      "tags": "pickle, serialize, save, load",
+      "description": "オブジェクトのシリアライズ",
+      "language": "python"
+    },
+    {
+      "title": "Python environment variables",
+      "content": "import os\nfrom pathlib import Path\n\n# 環境変数の取得\nhome = os.environ.get('HOME')\napi_key = os.environ.get('API_KEY', 'default_key')\n\n# 環境変数の設定\nos.environ['MY_VAR'] = 'my_value'\n\n# .env ファイルから読み込み (python-dotenv使用)\ntry:\n    from dotenv import load_dotenv\n    load_dotenv()\nexcept ImportError:\n    pass\n\n# 全環境変数の表示\nfor key, value in os.environ.items():\n    if key.startswith('PYTHON'):\n        print(f'{key}: {value}')",
+      "category": "Python",
+      "tags": "environment, variables, os, dotenv",
+      "description": "環境変数の操作",
+      "language": "python"
+    },
+    {
+      "title": "Python string formatting",
+      "content": "# f-strings (Python 3.6+)\nname = 'Alice'\nage = 30\nprint(f'Name: {name}, Age: {age}')\nprint(f'Calculation: {2 + 2 = }')\nprint(f'Aligned: {name:>10}')\nprint(f'Float: {3.14159:.2f}')\n\n# format メソッド\ntemplate = 'Hello, {name}! You are {age} years old.'\nprint(template.format(name='Bob', age=25))\n\n# % 演算子（古い方法）\nprint('Hello, %s! You are %d years old.' % (name, age))\n\n# Template strings\nfrom string import Template\nt = Template('$name is $age years old')\nprint(t.substitute(name='Charlie', age=35))",
+      "category": "Python",
+      "tags": "string, format, f-string, template",
+      "description": "文字列フォーマット",
+      "language": "python"
+    },
+    {
+      "title": "Python virtual environment",
+      "content": "# 仮想環境の作成\npython -m venv myenv\n\n# アクティベート\n# Linux/Mac:\nsource myenv/bin/activate\n# Windows:\nmyenv\\Scripts\\activate\n\n# パッケージインストール\npip install requests pandas numpy\n\n# 依存関係の保存\npip freeze > requirements.txt\n\n# 依存関係のインストール\npip install -r requirements.txt\n\n# 仮想環境の無効化\ndeactivate\n\n# 仮想環境の削除\nrm -rf myenv  # Linux/Mac\nrmdir /s myenv  # Windows",
+      "category": "Python",
+      "tags": "venv, virtual environment, pip, package",
+      "description": "仮想環境の管理",
+      "language": "bash"
+    },
+    {
+      "title": "Python pytest basic",
+      "content": "import pytest\n\n# テスト対象の関数\ndef add(a, b):\n    return a + b\n\ndef divide(a, b):\n    if b == 0:\n        raise ValueError('Cannot divide by zero')\n    return a / b\n\n# テストケース\ndef test_add():\n    assert add(2, 3) == 5\n    assert add(-1, 1) == 0\n\ndef test_divide():\n    assert divide(10, 2) == 5\n    \n    # 例外のテスト\n    with pytest.raises(ValueError):\n        divide(10, 0)\n\n# フィクスチャ\n@pytest.fixture\ndef sample_data():\n    return [1, 2, 3, 4, 5]\n\ndef test_with_fixture(sample_data):\n    assert sum(sample_data) == 15",
+      "category": "Python",
+      "tags": "pytest, test, unittest, fixture",
+      "description": "pytest でのテスト",
+      "language": "python"
+    },
+    {
+      "title": "Python pandas basic operations",
+      "content": "import pandas as pd\n\n# DataFrameの作成\ndf = pd.DataFrame({\n    'name': ['Alice', 'Bob', 'Charlie'],\n    'age': [25, 30, 35],\n    'city': ['Tokyo', 'Osaka', 'Kyoto']\n})\n\n# CSV読み込み/書き込み\ndf = pd.read_csv('data.csv')\ndf.to_csv('output.csv', index=False)\n\n# 基本操作\nprint(df.head())  # 最初の5行\nprint(df.info())  # データ型情報\nprint(df.describe())  # 統計情報\n\n# フィルタリング\nfiltered = df[df['age'] > 25]\n\n# グループ化と集計\ngrouped = df.groupby('city')['age'].mean()\n\n# ソート\ndf_sorted = df.sort_values('age', ascending=False)",
+      "category": "Python",
+      "tags": "pandas, dataframe, csv, data analysis",
+      "description": "pandas の基本操作",
+      "language": "python"
+    },
+    {
+      "title": "Python numpy array operations",
+      "content": "import numpy as np\n\n# 配列作成\narr = np.array([1, 2, 3, 4, 5])\nzeros = np.zeros((3, 3))\nones = np.ones((2, 4))\nrange_arr = np.arange(0, 10, 2)\nlinspace = np.linspace(0, 1, 5)\n\n# 配列操作\nreshaped = arr.reshape(5, 1)\nflattened = reshaped.flatten()\n\n# 数学演算\nprint(arr.mean())\nprint(arr.std())\nprint(arr.sum())\nprint(arr.min(), arr.max())\n\n# ブロードキャスト\nmatrix = np.array([[1, 2], [3, 4]])\nresult = matrix + 10  # 全要素に10を加算\n\n# インデックス操作\nmasked = arr[arr > 3]",
+      "category": "Python",
+      "tags": "numpy, array, matrix, numerical",
+      "description": "NumPy 配列操作",
+      "language": "python"
+    },
+    {
+      "title": "Python matplotlib plotting",
+      "content": "import matplotlib.pyplot as plt\nimport numpy as np\n\n# データ準備\nx = np.linspace(0, 10, 100)\ny = np.sin(x)\n\n# 基本的なプロット\nplt.figure(figsize=(10, 6))\nplt.plot(x, y, label='sin(x)')\nplt.plot(x, np.cos(x), label='cos(x)')\n\n# グラフ装飾\nplt.xlabel('X axis')\nplt.ylabel('Y axis')\nplt.title('Trigonometric Functions')\nplt.legend()\nplt.grid(True)\n\n# サブプロット\nfig, axes = plt.subplots(2, 2, figsize=(10, 8))\naxes[0, 0].plot(x, y)\naxes[0, 1].scatter(x[::5], y[::5])\naxes[1, 0].bar(range(5), [2, 4, 6, 8, 10])\naxes[1, 1].hist(np.random.randn(100))\n\nplt.tight_layout()\nplt.show()",
+      "category": "Python",
+      "tags": "matplotlib, plot, graph, visualization",
+      "description": "matplotlib でのグラフ描画",
+      "language": "python"
+    },
+    {
+      "title": "Python sqlalchemy ORM",
+      "content": "from sqlalchemy import create_engine, Column, Integer, String\nfrom sqlalchemy.ext.declarative import declarative_base\nfrom sqlalchemy.orm import sessionmaker\n\n# データベース接続\nengine = create_engine('sqlite:///example.db')\nBase = declarative_base()\nSession = sessionmaker(bind=engine)\n\n# モデル定義\nclass User(Base):\n    __tablename__ = 'users'\n    \n    id = Column(Integer, primary_key=True)\n    name = Column(String)\n    email = Column(String, unique=True)\n\n# テーブル作成\nBase.metadata.create_all(engine)\n\n# データ操作\nsession = Session()\n\n# 追加\nnew_user = User(name='Alice', email='alice@example.com')\nsession.add(new_user)\nsession.commit()\n\n# 検索\nuser = session.query(User).filter_by(name='Alice').first()",
+      "category": "Python",
+      "tags": "sqlalchemy, orm, database, sql",
+      "description": "SQLAlchemy ORM の基本",
+      "language": "python"
+    },
+    {
+      "title": "Python flask basic app",
+      "content": "from flask import Flask, request, jsonify, render_template\n\napp = Flask(__name__)\n\n# ルート定義\n@app.route('/')\ndef home():\n    return 'Hello, Flask!'\n\n@app.route('/api/data', methods=['GET'])\ndef get_data():\n    data = {'message': 'Success', 'items': [1, 2, 3]}\n    return jsonify(data)\n\n@app.route('/api/data', methods=['POST'])\ndef post_data():\n    data = request.json\n    return jsonify({'received': data}), 201\n\n@app.route('/user/<username>')\ndef show_user(username):\n    return f'User: {username}'\n\nif __name__ == '__main__':\n    app.run(debug=True, port=5000)",
+      "category": "Python",
+      "tags": "flask, web, api, server",
+      "description": "Flask Webアプリケーション",
+      "language": "python"
+    },
+    {
+      "title": "Python fastapi basic",
+      "content": "from fastapi import FastAPI, HTTPException\nfrom pydantic import BaseModel\nfrom typing import Optional, List\n\napp = FastAPI()\n\n# データモデル\nclass Item(BaseModel):\n    id: int\n    name: str\n    price: float\n    is_offer: Optional[bool] = None\n\n# ルート定義\n@app.get('/')\ndef read_root():\n    return {'Hello': 'World'}\n\n@app.get('/items/{item_id}')\ndef read_item(item_id: int, q: Optional[str] = None):\n    return {'item_id': item_id, 'q': q}\n\n@app.post('/items/', response_model=Item)\ndef create_item(item: Item):\n    return item\n\n@app.put('/items/{item_id}')\ndef update_item(item_id: int, item: Item):\n    return {'item_id': item_id, **item.dict()}",
+      "category": "Python",
+      "tags": "fastapi, api, async, web",
+      "description": "FastAPI の基本",
+      "language": "python"
+    },
+    {
+      "title": "Python websocket client",
+      "content": "import asyncio\nimport websockets\nimport json\n\nasync def client():\n    uri = 'ws://localhost:8765'\n    \n    async with websockets.connect(uri) as websocket:\n        # メッセージ送信\n        message = {'type': 'greeting', 'content': 'Hello Server!'}\n        await websocket.send(json.dumps(message))\n        \n        # メッセージ受信\n        response = await websocket.recv()\n        data = json.loads(response)\n        print(f'Received: {data}')\n        \n        # 継続的な受信\n        async for message in websocket:\n            data = json.loads(message)\n            print(f'New message: {data}')\n            if data.get('type') == 'close':\n                break\n\n# 実行\nasyncio.run(client())",
+      "category": "Python",
+      "tags": "websocket, async, client, realtime",
+      "description": "WebSocketクライアント",
+      "language": "python"
+    },
+    {
+      "title": "Python redis operations",
+      "content": "import redis\nimport json\n\n# Redis接続\nr = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)\n\n# 基本操作\nr.set('key', 'value')\nvalue = r.get('key')\n\n# 有効期限付き\nr.setex('temp_key', 60, 'temp_value')  # 60秒後に削除\n\n# リスト操作\nr.lpush('mylist', 'item1', 'item2')\nitems = r.lrange('mylist', 0, -1)\n\n# ハッシュ操作\nr.hset('user:1', mapping={'name': 'Alice', 'age': '30'})\nuser = r.hgetall('user:1')\n\n# JSON データ\ndata = {'name': 'Bob', 'scores': [90, 85, 88]}\nr.set('user:2', json.dumps(data))\nloaded = json.loads(r.get('user:2'))\n\n# パブリッシュ/サブスクライブ\npubsub = r.pubsub()\npubsub.subscribe('channel')",
+      "category": "Python",
+      "tags": "redis, cache, database, nosql",
+      "description": "Redis操作",
+      "language": "python"
+    },
+    {
+      "title": "Python mongodb operations",
+      "content": "from pymongo import MongoClient\nfrom datetime import datetime\n\n# MongoDB接続\nclient = MongoClient('mongodb://localhost:27017/')\ndb = client['mydatabase']\ncollection = db['users']\n\n# ドキュメント挿入\nuser = {\n    'name': 'Alice',\n    'email': 'alice@example.com',\n    'age': 30,\n    'created_at': datetime.now()\n}\nresult = collection.insert_one(user)\nprint(f'Inserted ID: {result.inserted_id}')\n\n# 検索\nuser = collection.find_one({'name': 'Alice'})\nusers = collection.find({'age': {'$gte': 25}})\n\n# 更新\ncollection.update_one(\n    {'name': 'Alice'},\n    {'$set': {'age': 31}}\n)\n\n# 削除\ncollection.delete_one({'name': 'Alice'})",
+      "category": "Python",
+      "tags": "mongodb, nosql, database, pymongo",
+      "description": "MongoDB操作",
+      "language": "python"
+    },
+    {
+      "title": "Python beautifulsoup scraping",
+      "content": "from bs4 import BeautifulSoup\nimport requests\n\n# HTMLの取得とパース\nurl = 'https://example.com'\nresponse = requests.get(url)\nsoup = BeautifulSoup(response.content, 'html.parser')\n\n# 要素の検索\ntitle = soup.find('title').text\nheadings = soup.find_all('h1')\n\n# CSSセレクタ\narticles = soup.select('article.post')\n\n# 属性取得\nlinks = []\nfor a in soup.find_all('a', href=True):\n    links.append(a['href'])\n\n# テキスト抽出\nfor p in soup.find_all('p'):\n    print(p.get_text(strip=True))\n\n# ネストした要素\ndiv = soup.find('div', class_='content')\nif div:\n    paragraphs = div.find_all('p')",
+      "category": "Python",
+      "tags": "beautifulsoup, scraping, html, web",
+      "description": "BeautifulSoupでWebスクレイピング",
+      "language": "python"
+    },
+    {
+      "title": "Python selenium automation",
+      "content": "from selenium import webdriver\nfrom selenium.webdriver.common.by import By\nfrom selenium.webdriver.common.keys import Keys\nfrom selenium.webdriver.support.ui import WebDriverWait\nfrom selenium.webdriver.support import expected_conditions as EC\n\n# ドライバー初期化\ndriver = webdriver.Chrome()  # or Firefox(), Safari()\n\ntry:\n    # ページを開く\n    driver.get('https://example.com')\n    \n    # 要素の検索と操作\n    search_box = driver.find_element(By.NAME, 'q')\n    search_box.send_keys('Python')\n    search_box.send_keys(Keys.RETURN)\n    \n    # 要素の待機\n    wait = WebDriverWait(driver, 10)\n    element = wait.until(\n        EC.presence_of_element_located((By.ID, 'results'))\n    )\n    \n    # JavaScript実行\n    driver.execute_script('window.scrollTo(0, document.body.scrollHeight);')\n    \n    # スクリーンショット\n    driver.save_screenshot('screenshot.png')\n    \nfinally:\n    driver.quit()",
+      "category": "Python",
+      "tags": "selenium, automation, browser, testing",
+      "description": "Seleniumでブラウザ自動化",
+      "language": "python"
+    },
+    {
+      "title": "Python schedule tasks",
+      "content": "import schedule\nimport time\nfrom datetime import datetime\n\ndef job():\n    print(f'Task executed at {datetime.now()}')\n\ndef daily_report():\n    print('Generating daily report...')\n\ndef backup():\n    print('Running backup...')\n\n# スケジュール設定\nschedule.every(10).seconds.do(job)\nschedule.every(5).minutes.do(job)\nschedule.every().hour.do(job)\nschedule.every().day.at('10:30').do(daily_report)\nschedule.every().monday.do(backup)\nschedule.every().wednesday.at('13:15').do(backup)\n\n# スケジュール実行\nwhile True:\n    schedule.run_pending()\n    time.sleep(1)",
+      "category": "Python",
+      "tags": "schedule, cron, task, automation",
+      "description": "定期タスクのスケジューリング",
+      "language": "python"
+    },
+    {
+      "title": "Python email sending",
+      "content": "import smtplib\nfrom email.mime.text import MIMEText\nfrom email.mime.multipart import MIMEMultipart\nfrom email.mime.base import MIMEBase\nfrom email import encoders\n\n# メール設定\nsmtp_server = 'smtp.gmail.com'\nsmtp_port = 587\nsender_email = 'sender@example.com'\nsender_password = 'password'\nreceiver_email = 'receiver@example.com'\n\n# メッセージ作成\nmessage = MIMEMultipart()\nmessage['From'] = sender_email\nmessage['To'] = receiver_email\nmessage['Subject'] = 'Test Email'\n\n# 本文\nbody = 'This is a test email sent from Python!'\nmessage.attach(MIMEText(body, 'plain'))\n\n# 添付ファイル\nfilename = 'document.pdf'\nwith open(filename, 'rb') as attachment:\n    part = MIMEBase('application', 'octet-stream')\n    part.set_payload(attachment.read())\n    encoders.encode_base64(part)\n    part.add_header('Content-Disposition', f'attachment; filename= {filename}')\n    message.attach(part)\n\n# 送信\nwith smtplib.SMTP(smtp_server, smtp_port) as server:\n    server.starttls()\n    server.login(sender_email, sender_password)\n    server.send_message(message)",
+      "category": "Python",
+      "tags": "email, smtp, send, attachment",
+      "description": "メール送信",
+      "language": "python"
+    },
+    {
+      "title": "Python cryptography encryption",
+      "content": "from cryptography.fernet import Fernet\nimport base64\nimport hashlib\n\n# 対称暗号化\n# キー生成\nkey = Fernet.generate_key()\ncipher = Fernet(key)\n\n# 暗号化\nmessage = b'Secret message'\nencrypted = cipher.encrypt(message)\nprint(f'Encrypted: {encrypted}')\n\n# 復号化\ndecrypted = cipher.decrypt(encrypted)\nprint(f'Decrypted: {decrypted}')\n\n# ハッシュ\ntext = 'password123'\n# SHA256\nsha256_hash = hashlib.sha256(text.encode()).hexdigest()\nprint(f'SHA256: {sha256_hash}')\n\n# MD5 (安全ではない、互換性のみ)\nmd5_hash = hashlib.md5(text.encode()).hexdigest()\nprint(f'MD5: {md5_hash}')\n\n# パスワードから鍵生成\npassword = b'mypassword'\nsalt = b'salt1234'\nkey = base64.urlsafe_b64encode(hashlib.pbkdf2_hmac('sha256', password, salt, 100000, 32))",
+      "category": "Python",
+      "tags": "cryptography, encryption, hash, security",
+      "description": "暗号化とハッシュ",
+      "language": "python"
+    },
+    {
+      "title": "Python yaml operations",
+      "content": "import yaml\n\n# YAMLデータ\nyaml_string = '''\nserver:\n  host: localhost\n  port: 8080\n  ssl: true\n\ndatabase:\n  name: mydb\n  user: admin\n  password: secret\n\nfeatures:\n  - authentication\n  - logging\n  - caching\n'''\n\n# YAML読み込み\ndata = yaml.safe_load(yaml_string)\nprint(data['server']['host'])\n\n# YAMLファイル読み込み\nwith open('config.yaml', 'r') as f:\n    config = yaml.safe_load(f)\n\n# YAML書き込み\ndata = {\n    'name': 'MyApp',\n    'version': '1.0.0',\n    'dependencies': ['flask', 'requests', 'pandas']\n}\n\nwith open('output.yaml', 'w') as f:\n    yaml.dump(data, f, default_flow_style=False)",
+      "category": "Python",
+      "tags": "yaml, config, parse, file",
+      "description": "YAML ファイルの操作",
+      "language": "python"
+    },
+    {
+      "title": "Python configparser ini",
+      "content": "import configparser\n\n# INIファイル作成\nconfig = configparser.ConfigParser()\n\nconfig['DEFAULT'] = {\n    'debug': 'false',\n    'log_level': 'info'\n}\n\nconfig['database'] = {\n    'host': 'localhost',\n    'port': '5432',\n    'name': 'mydb',\n    'user': 'admin'\n}\n\nconfig['server'] = {\n    'host': '0.0.0.0',\n    'port': '8080',\n    'workers': '4'\n}\n\n# INIファイル書き込み\nwith open('config.ini', 'w') as f:\n    config.write(f)\n\n# INIファイル読み込み\nconfig = configparser.ConfigParser()\nconfig.read('config.ini')\n\n# 値の取得\ndb_host = config['database']['host']\ndb_port = config.getint('database', 'port')\ndebug = config.getboolean('DEFAULT', 'debug')",
+      "category": "Python",
+      "tags": "configparser, ini, config, settings",
+      "description": "INI設定ファイルの操作",
+      "language": "python"
+    },
+    {
+      "title": "Python click CLI framework",
+      "content": "import click\n\n@click.group()\ndef cli():\n    \"\"\"My CLI Application\"\"\"\n    pass\n\n@cli.command()\n@click.option('--name', '-n', default='World', help='Name to greet')\n@click.option('--count', '-c', default=1, type=int, help='Number of greetings')\ndef greet(name, count):\n    \"\"\"Greet someone\"\"\"\n    for _ in range(count):\n        click.echo(f'Hello, {name}!')\n\n@cli.command()\n@click.argument('source', type=click.Path(exists=True))\n@click.argument('dest', type=click.Path())\n@click.option('--verbose', '-v', is_flag=True, help='Verbose output')\ndef copy(source, dest, verbose):\n    \"\"\"Copy files\"\"\"\n    if verbose:\n        click.echo(f'Copying {source} to {dest}')\n    # Copy logic here\n    click.echo('Done!')\n\n@cli.command()\n@click.confirmation_option(prompt='Are you sure?')\ndef delete():\n    \"\"\"Delete something\"\"\"\n    click.echo('Deleted!')\n\nif __name__ == '__main__':\n    cli()",
+      "category": "Python",
+      "tags": "click, cli, command line, framework",
+      "description": "Click CLIフレームワーク",
+      "language": "python"
+    },
+    {
+      "title": "Python tqdm progress bar",
+      "content": "from tqdm import tqdm\nimport time\n\n# 基本的なプログレスバー\nfor i in tqdm(range(100)):\n    time.sleep(0.01)\n\n# 説明付き\nfor i in tqdm(range(100), desc='Processing'):\n    time.sleep(0.01)\n\n# 手動更新\npbar = tqdm(total=100)\nfor i in range(10):\n    time.sleep(0.1)\n    pbar.update(10)\npbar.close()\n\n# ネストしたプログレスバー\nfor i in tqdm(range(3), desc='Outer'):\n    for j in tqdm(range(100), desc='Inner', leave=False):\n        time.sleep(0.01)\n\n# ファイル処理\nwith open('large_file.txt', 'r') as f:\n    lines = f.readlines()\n    for line in tqdm(lines, desc='Reading lines'):\n        process(line)",
+      "category": "Python",
+      "tags": "tqdm, progress, bar, loop",
+      "description": "プログレスバーの表示",
+      "language": "python"
+    }
+  ]
+}

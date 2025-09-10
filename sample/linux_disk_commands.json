@@ -1,0 +1,247 @@
+{
+  "version": "1.0.0",
+  "exported_at": "2024-01-09T12:00:00",
+  "total_count": 30,
+  "snippets": [
+    {
+      "title": "Disk usage summary by directory",
+      "content": "du -sh /* 2>/dev/null | sort -rh | head -20",
+      "category": "Linux",
+      "tags": "disk, usage, du, directory, size",
+      "description": "ルートディレクトリ配下の各ディレクトリのサイズを大きい順に20個表示",
+      "language": "bash"
+    },
+    {
+      "title": "Disk filesystem usage",
+      "content": "df -h",
+      "category": "Linux",
+      "tags": "disk, filesystem, df, partition",
+      "description": "全ファイルシステムの使用状況を人間が読みやすい形式で表示",
+      "language": "bash"
+    },
+    {
+      "title": "Disk usage with inode info",
+      "content": "df -ih",
+      "category": "Linux",
+      "tags": "disk, inode, filesystem",
+      "description": "iノードの使用状況を含むファイルシステム情報",
+      "language": "bash"
+    },
+    {
+      "title": "Find large files over 100MB",
+      "content": "find / -type f -size +100M -exec ls -lh {} \\; 2>/dev/null | sort -k5 -rh",
+      "category": "Linux",
+      "tags": "find, large files, disk, size",
+      "description": "100MB以上の大きなファイルを検索してサイズ順に表示",
+      "language": "bash"
+    },
+    {
+      "title": "Find files modified in last 7 days",
+      "content": "find /home -type f -mtime -7 -exec ls -lh {} \\; | sort -k6,7",
+      "category": "Linux",
+      "tags": "find, recent, modified, files",
+      "description": "過去7日間に変更されたファイルを検索",
+      "language": "bash"
+    },
+    {
+      "title": "Current directory disk usage detailed",
+      "content": "du -h --max-depth=1 . | sort -rh",
+      "category": "Linux",
+      "tags": "disk, usage, current, directory",
+      "description": "カレントディレクトリ直下の各項目のサイズを表示",
+      "language": "bash"
+    },
+    {
+      "title": "Top 50 largest files",
+      "content": "find / -type f -exec du -Sh {} + 2>/dev/null | sort -rh | head -50",
+      "category": "Linux",
+      "tags": "find, largest, files, top50",
+      "description": "システム全体で最も大きいファイルトップ50",
+      "language": "bash"
+    },
+    {
+      "title": "Disk usage by file type",
+      "content": "find . -type f -name '*.log' -exec du -ch {} + | grep total$",
+      "category": "Linux",
+      "tags": "disk, usage, file type, log",
+      "description": "特定の拡張子（例：.log）のファイルの合計サイズ",
+      "language": "bash"
+    },
+    {
+      "title": "Check disk IO statistics",
+      "content": "iostat -x 1 5",
+      "category": "Linux",
+      "tags": "iostat, disk, io, performance",
+      "description": "ディスクI/O統計を1秒間隔で5回表示",
+      "language": "bash"
+    },
+    {
+      "title": "List all block devices",
+      "content": "lsblk -f",
+      "category": "Linux",
+      "tags": "lsblk, block device, disk, partition",
+      "description": "全ブロックデバイスとファイルシステム情報を表示",
+      "language": "bash"
+    },
+    {
+      "title": "Show disk partitions with UUID",
+      "content": "blkid",
+      "category": "Linux",
+      "tags": "blkid, uuid, partition, disk",
+      "description": "全パーティションのUUIDとファイルシステムタイプを表示",
+      "language": "bash"
+    },
+    {
+      "title": "Check disk health SMART",
+      "content": "sudo smartctl -a /dev/sda",
+      "category": "Linux",
+      "tags": "smart, health, disk, diagnostic",
+      "description": "ディスクのSMART情報と健康状態を確認",
+      "language": "bash"
+    },
+    {
+      "title": "Mount with specific options",
+      "content": "sudo mount -o rw,noatime,nodiratime /dev/sdb1 /mnt/data",
+      "category": "Linux",
+      "tags": "mount, disk, options, performance",
+      "description": "パフォーマンス最適化オプション付きでマウント",
+      "language": "bash"
+    },
+    {
+      "title": "Show mounted filesystems",
+      "content": "mount | column -t",
+      "category": "Linux",
+      "tags": "mount, filesystem, display",
+      "description": "現在マウントされているファイルシステムを整形して表示",
+      "language": "bash"
+    },
+    {
+      "title": "Disk usage exclude directories",
+      "content": "du -sh /* --exclude=/proc --exclude=/sys --exclude=/dev --exclude=/run 2>/dev/null | sort -rh",
+      "category": "Linux",
+      "tags": "disk, usage, exclude, system",
+      "description": "システムディレクトリを除外してディスク使用量を表示",
+      "language": "bash"
+    },
+    {
+      "title": "Find empty directories",
+      "content": "find /home -type d -empty",
+      "category": "Linux",
+      "tags": "find, empty, directory, cleanup",
+      "description": "空のディレクトリを検索（クリーンアップ用）",
+      "language": "bash"
+    },
+    {
+      "title": "Delete old log files",
+      "content": "find /var/log -name '*.log' -mtime +30 -exec rm {} \\;",
+      "category": "Linux",
+      "tags": "cleanup, log, delete, old files",
+      "description": "30日以上前のログファイルを削除",
+      "language": "bash"
+    },
+    {
+      "title": "Compress old files",
+      "content": "find /backup -name '*.txt' -mtime +7 -exec gzip {} \\;",
+      "category": "Linux",
+      "tags": "compress, gzip, old files, backup",
+      "description": "7日以上前のテキストファイルを圧縮",
+      "language": "bash"
+    },
+    {
+      "title": "Check directory size growth",
+      "content": "watch -n 10 'du -sh /var/log'",
+      "category": "Linux",
+      "tags": "watch, monitor, disk, growth",
+      "description": "ディレクトリサイズの増加を10秒ごとに監視",
+      "language": "bash"
+    },
+    {
+      "title": "Rsync with progress",
+      "content": "rsync -avh --progress /source/ /destination/",
+      "category": "Linux",
+      "tags": "rsync, copy, backup, progress",
+      "description": "進捗表示付きでディレクトリを同期",
+      "language": "bash"
+    },
+    {
+      "title": "Disk benchmark write speed",
+      "content": "dd if=/dev/zero of=/tmp/test bs=1M count=1024 conv=fdatasync",
+      "category": "Linux",
+      "tags": "benchmark, disk, speed, dd",
+      "description": "ディスクの書き込み速度をテスト（1GBファイル）",
+      "language": "bash"
+    },
+    {
+      "title": "Disk benchmark read speed",
+      "content": "dd if=/tmp/test of=/dev/null bs=1M count=1024",
+      "category": "Linux",
+      "tags": "benchmark, disk, speed, read",
+      "description": "ディスクの読み込み速度をテスト",
+      "language": "bash"
+    },
+    {
+      "title": "Create swap file",
+      "content": "sudo fallocate -l 4G /swapfile && sudo chmod 600 /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile",
+      "category": "Linux",
+      "tags": "swap, memory, disk, create",
+      "description": "4GBのスワップファイルを作成して有効化",
+      "language": "bash"
+    },
+    {
+      "title": "Check swap usage",
+      "content": "free -h && echo '---' && swapon --show",
+      "category": "Linux",
+      "tags": "swap, memory, usage, check",
+      "description": "メモリとスワップの使用状況を確認",
+      "language": "bash"
+    },
+    {
+      "title": "Filesystem check and repair",
+      "content": "sudo fsck -y /dev/sdb1",
+      "category": "Linux",
+      "tags": "fsck, repair, filesystem, check",
+      "description": "ファイルシステムのチェックと自動修復",
+      "language": "bash"
+    },
+    {
+      "title": "Create ext4 filesystem",
+      "content": "sudo mkfs.ext4 -L DATA /dev/sdb1",
+      "category": "Linux",
+      "tags": "mkfs, format, ext4, filesystem",
+      "description": "ext4ファイルシステムを作成（ラベル付き）",
+      "language": "bash"
+    },
+    {
+      "title": "Resize filesystem",
+      "content": "sudo resize2fs /dev/sdb1",
+      "category": "Linux",
+      "tags": "resize, filesystem, ext4, expand",
+      "description": "ext4ファイルシステムをパーティションサイズに合わせて拡張",
+      "language": "bash"
+    },
+    {
+      "title": "Show disk usage by user",
+      "content": "sudo du -sh /home/* | sort -rh",
+      "category": "Linux",
+      "tags": "disk, usage, user, home",
+      "description": "各ユーザーのホームディレクトリ使用量",
+      "language": "bash"
+    },
+    {
+      "title": "Find duplicate files",
+      "content": "find . -type f -exec md5sum {} \\; | sort | uniq -w32 -d",
+      "category": "Linux",
+      "tags": "find, duplicate, files, md5",
+      "description": "MD5ハッシュを使用して重複ファイルを検出",
+      "language": "bash"
+    },
+    {
+      "title": "Secure delete files",
+      "content": "shred -vfz -n 3 /path/to/sensitive/file",
+      "category": "Linux",
+      "tags": "shred, secure, delete, overwrite",
+      "description": "ファイルを3回上書きしてから削除（セキュアな削除）",
+      "language": "bash"
+    }
+  ]
+}

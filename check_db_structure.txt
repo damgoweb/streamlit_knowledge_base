@@ -1,0 +1,286 @@
+================================================================================
+📊 DATABASE STRUCTURE ANALYSIS
+================================================================================
+
+### 1. テーブル一覧
+----------------------------------------
+
+📁 categories (table)
+   📝 通常テーブル
+
+📁 search_history (table)
+   📝 通常テーブル
+
+📁 snippets (table)
+   📝 通常テーブル
+
+📁 snippets_fts (table)
+   ⚡ 仮想テーブル (FTS5)
+
+📁 snippets_fts_config (table)
+   📝 通常テーブル
+
+📁 snippets_fts_content (table)
+   📝 通常テーブル
+
+📁 snippets_fts_data (table)
+   📝 通常テーブル
+
+📁 snippets_fts_docsize (table)
+   📝 通常テーブル
+
+📁 snippets_fts_idx (table)
+   📝 通常テーブル
+
+📁 sqlite_sequence (table)
+   📝 通常テーブル
+
+================================================================================
+### 2. 各テーブルの詳細構造
+----------------------------------------
+
+🔍 categories
+----------------------------------------
+CREATE文:
+CREATE TABLE categories (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        name TEXT UNIQUE NOT NULL,
+                        icon TEXT DEFAULT '📁',
+                        display_order INTEGER DEFAULT 0
+                    )
+
+カラム構造:
+ID    名前                   型               NULL   デフォルト           PK
+--------------------------------------------------------------------------------
+0     id                   INTEGER         YES                    PK
+1     name                 TEXT            NO                     
+2     icon                 TEXT            YES    '📁'             
+3     display_order        INTEGER         YES    0               
+
+レコード数: 7
+
+🔍 search_history
+----------------------------------------
+CREATE文:
+CREATE TABLE search_history (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        query TEXT NOT NULL,
+                        searched_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        result_count INTEGER DEFAULT 0
+                    )
+
+カラム構造:
+ID    名前                   型               NULL   デフォルト           PK
+--------------------------------------------------------------------------------
+0     id                   INTEGER         YES                    PK
+1     query                TEXT            NO                     
+2     searched_at          TIMESTAMP       YES    CURRENT_TIMESTAMP 
+3     result_count         INTEGER         YES    0               
+
+レコード数: 106
+
+🔍 snippets
+----------------------------------------
+CREATE文:
+CREATE TABLE snippets (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        title TEXT NOT NULL,
+                        content TEXT NOT NULL,
+                        category TEXT NOT NULL,
+                        tags TEXT,
+                        description TEXT,
+                        language TEXT DEFAULT 'text',
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        usage_count INTEGER DEFAULT 0,
+                        is_favorite INTEGER DEFAULT 0,
+                        CHECK (language IN ('text', 'bash', 'python', 'sql', 
+                                          'javascript', 'yaml', 'json', 
+                                          'dockerfile', 'conf', 'xml'))
+                    )
+
+カラム構造:
+ID    名前                   型               NULL   デフォルト           PK
+--------------------------------------------------------------------------------
+0     id                   INTEGER         YES                    PK
+1     title                TEXT            NO                     
+2     content              TEXT            NO                     
+3     category             TEXT            NO                     
+4     tags                 TEXT            YES                    
+5     description          TEXT            YES                    
+6     language             TEXT            YES    'text'          
+7     created_at           TIMESTAMP       YES    CURRENT_TIMESTAMP 
+8     updated_at           TIMESTAMP       YES    CURRENT_TIMESTAMP 
+9     usage_count          INTEGER         YES    0               
+10    is_favorite          INTEGER         YES    0               
+
+レコード数: 99
+
+🔍 snippets_fts
+----------------------------------------
+CREATE文:
+CREATE VIRTUAL TABLE snippets_fts USING fts5(
+            title, 
+            content, 
+            tags, 
+            description
+        )
+
+
+レコード数: 99
+
+🔍 snippets_fts_config
+----------------------------------------
+CREATE文:
+CREATE TABLE 'snippets_fts_config'(k PRIMARY KEY, v) WITHOUT ROWID
+
+カラム構造:
+ID    名前                   型               NULL   デフォルト           PK
+--------------------------------------------------------------------------------
+0     k                                    NO                     PK
+1     v                                    YES                    
+
+レコード数: 1
+
+🔍 snippets_fts_content
+----------------------------------------
+CREATE文:
+CREATE TABLE 'snippets_fts_content'(id INTEGER PRIMARY KEY, c0, c1, c2, c3)
+
+カラム構造:
+ID    名前                   型               NULL   デフォルト           PK
+--------------------------------------------------------------------------------
+0     id                   INTEGER         YES                    PK
+1     c0                                   YES                    
+2     c1                                   YES                    
+3     c2                                   YES                    
+4     c3                                   YES                    
+
+レコード数: 99
+
+🔍 snippets_fts_data
+----------------------------------------
+CREATE文:
+CREATE TABLE 'snippets_fts_data'(id INTEGER PRIMARY KEY, block BLOB)
+
+カラム構造:
+ID    名前                   型               NULL   デフォルト           PK
+--------------------------------------------------------------------------------
+0     id                   INTEGER         YES                    PK
+1     block                BLOB            YES                    
+
+レコード数: 20
+
+🔍 snippets_fts_docsize
+----------------------------------------
+CREATE文:
+CREATE TABLE 'snippets_fts_docsize'(id INTEGER PRIMARY KEY, sz BLOB)
+
+カラム構造:
+ID    名前                   型               NULL   デフォルト           PK
+--------------------------------------------------------------------------------
+0     id                   INTEGER         YES                    PK
+1     sz                   BLOB            YES                    
+
+レコード数: 99
+
+🔍 snippets_fts_idx
+----------------------------------------
+CREATE文:
+CREATE TABLE 'snippets_fts_idx'(segid, term, pgno, PRIMARY KEY(segid, term)) WITHOUT ROWID
+
+カラム構造:
+ID    名前                   型               NULL   デフォルト           PK
+--------------------------------------------------------------------------------
+0     segid                                NO                     PK
+1     term                                 NO                     PK
+2     pgno                                 YES                    
+
+レコード数: 18
+
+🔍 sqlite_sequence
+----------------------------------------
+CREATE文:
+CREATE TABLE sqlite_sequence(name,seq)
+
+カラム構造:
+ID    名前                   型               NULL   デフォルト           PK
+--------------------------------------------------------------------------------
+0     name                                 YES                    
+1     seq                                  YES                    
+
+レコード数: 3
+
+================================================================================
+### 3. インデックス一覧
+----------------------------------------
+
+📍 idx_snippets_category (on snippets)
+   CREATE INDEX idx_snippets_category 
+                    ON snippets(category)
+                
+
+📍 idx_snippets_favorite (on snippets)
+   CREATE INDEX idx_snippets_favorite 
+                    ON snippets(is_favorite DESC)
+                
+
+📍 idx_snippets_updated (on snippets)
+   CREATE INDEX idx_snippets_updated 
+                    ON snippets(updated_at DESC)
+                
+
+📍 idx_snippets_usage (on snippets)
+   CREATE INDEX idx_snippets_usage 
+                    ON snippets(usage_count DESC)
+                
+
+================================================================================
+### 4. トリガー一覧
+----------------------------------------
+
+⚡ snippets_fts_delete (on snippets)
+   目的: snippetsテーブルの変更をFTSテーブルに反映
+
+⚡ snippets_fts_insert (on snippets)
+   目的: snippetsテーブルの変更をFTSテーブルに反映
+
+⚡ snippets_fts_update (on snippets)
+   目的: snippetsテーブルの変更をFTSテーブルに反映
+
+================================================================================
+### 5. FTS（全文検索）テーブルの説明
+----------------------------------------
+
+FTSテーブルについて:
+- snippets_fts は全文検索用の仮想テーブルです
+- SQLite FTS5 (Full-Text Search) エンジンを使用
+- snippetsテーブルのテキストデータのインデックスを保持
+- 高速な全文検索を可能にします
+
+関連テーブル:
+- snippets_fts_* : FTS5が内部的に作成する補助テーブル
+  - snippets_fts_data: 実際の全文検索インデックスデータ
+  - snippets_fts_idx: インデックス構造
+  - snippets_fts_content: コンテンツ参照（使用されない場合もある）
+  - snippets_fts_docsize: ドキュメントサイズ情報
+  - snippets_fts_config: FTS設定情報
+
+これらは自動的に管理されるため、直接操作する必要はありません。
+    
+
+================================================================================
+### 6. データ重複チェック
+----------------------------------------
+✅ snippetsテーブルに重複データはありません
+
+================================================================================
+### 7. 推奨事項
+----------------------------------------
+
+1. FTS関連テーブル（snippets_fts_*）は自動管理されるため触らない
+2. データの追加・更新・削除は snippets テーブルに対してのみ行う
+3. トリガーが自動的にFTSインデックスを更新
+4. 検索時はFTSテーブルを使用すると高速（ただし現在は無効化中）
+5. バックアップ時は snippets, categories, search_history テーブルのみで十分
+    

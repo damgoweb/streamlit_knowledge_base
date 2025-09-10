@@ -1,0 +1,167 @@
+{
+  "version": "1.0.0",
+  "exported_at": "2024-01-09T12:00:00",
+  "total_count": 20,
+  "snippets": [
+    {
+      "title": "Docker container list all",
+      "content": "docker ps -a",
+      "category": "Docker",
+      "tags": "container, list, all, ps",
+      "description": "停止中のコンテナも含めて全てのコンテナを表示",
+      "language": "bash"
+    },
+    {
+      "title": "Docker container force remove",
+      "content": "docker rm -f $(docker ps -aq)",
+      "category": "Docker",
+      "tags": "container, remove, force, cleanup",
+      "description": "全てのコンテナを強制的に削除。注意：実行前に確認必須",
+      "language": "bash"
+    },
+    {
+      "title": "Docker image cleanup",
+      "content": "docker image prune -a",
+      "category": "Docker",
+      "tags": "image, cleanup, prune",
+      "description": "未使用のDockerイメージを削除してディスク容量を解放",
+      "language": "bash"
+    },
+    {
+      "title": "Docker Compose start background",
+      "content": "docker-compose up -d",
+      "category": "Docker",
+      "tags": "compose, start, detach, background",
+      "description": "Docker Composeでサービスをバックグラウンドで起動",
+      "language": "bash"
+    },
+    {
+      "title": "Docker logs tail follow",
+      "content": "docker logs -f --tail 100 [container_name]",
+      "category": "Docker",
+      "tags": "logs, tail, follow, debug",
+      "description": "コンテナのログを最新100行から表示し、リアルタイムで追跡",
+      "language": "bash"
+    },
+    {
+      "title": "Git undo last commit soft",
+      "content": "git reset --soft HEAD~1",
+      "category": "Git",
+      "tags": "reset, undo, commit, soft",
+      "description": "直前のコミットを取り消し。変更内容は保持",
+      "language": "bash"
+    },
+    {
+      "title": "Git force sync with remote",
+      "content": "git fetch origin && git reset --hard origin/main",
+      "category": "Git",
+      "tags": "reset, hard, remote, force",
+      "description": "ローカルの変更を破棄してリモートの状態に完全に合わせる",
+      "language": "bash"
+    },
+    {
+      "title": "Git branch list all",
+      "content": "git branch -a",
+      "category": "Git",
+      "tags": "branch, list, remote, all",
+      "description": "ローカルとリモートの全ブランチを表示",
+      "language": "bash"
+    },
+    {
+      "title": "Git cherry-pick commit",
+      "content": "git cherry-pick [commit_hash]",
+      "category": "Git",
+      "tags": "cherry-pick, commit, merge",
+      "description": "他のブランチから特定のコミットだけを現在のブランチに取り込む",
+      "language": "bash"
+    },
+    {
+      "title": "Git stash save and restore",
+      "content": "# 保存\ngit stash save \"作業中の変更\"\n\n# 一覧表示\ngit stash list\n\n# 復元\ngit stash pop",
+      "category": "Git",
+      "tags": "stash, save, restore, temporary",
+      "description": "一時的に変更を退避して、後で復元する",
+      "language": "bash"
+    },
+    {
+      "title": "SQL JOIN 3 tables",
+      "content": "SELECT \n    u.name,\n    o.order_date,\n    p.product_name,\n    oi.quantity,\n    oi.price\nFROM users u\nINNER JOIN orders o ON u.id = o.user_id\nINNER JOIN order_items oi ON o.id = oi.order_id\nINNER JOIN products p ON oi.product_id = p.id\nWHERE o.order_date >= DATE_SUB(NOW(), INTERVAL 30 DAY)\nORDER BY o.order_date DESC;",
+      "category": "SQL",
+      "tags": "join, inner join, multiple tables",
+      "description": "ユーザー、注文、注文明細、商品の4テーブルを結合して過去30日の注文を取得",
+      "language": "sql"
+    },
+    {
+      "title": "SQL Window function ranking",
+      "content": "SELECT \n    category,\n    product_name,\n    sales_amount,\n    RANK() OVER (PARTITION BY category ORDER BY sales_amount DESC) as rank_in_category,\n    DENSE_RANK() OVER (ORDER BY sales_amount DESC) as overall_rank\nFROM product_sales\nWHERE year = 2024;",
+      "category": "SQL",
+      "tags": "window function, rank, partition",
+      "description": "カテゴリ内ランキングと全体ランキングを同時に計算",
+      "language": "sql"
+    },
+    {
+      "title": "SQL recursive CTE hierarchy",
+      "content": "WITH RECURSIVE category_tree AS (\n    SELECT id, name, parent_id, 0 as level\n    FROM categories\n    WHERE parent_id IS NULL\n    \n    UNION ALL\n    \n    SELECT c.id, c.name, c.parent_id, ct.level + 1\n    FROM categories c\n    INNER JOIN category_tree ct ON c.parent_id = ct.id\n)\nSELECT * FROM category_tree\nORDER BY level, name;",
+      "category": "SQL",
+      "tags": "CTE, recursive, hierarchy, with",
+      "description": "カテゴリの階層構造を再帰的に取得",
+      "language": "sql"
+    },
+    {
+      "title": "Linux grep error from log",
+      "content": "grep -E \"ERROR|FATAL\" /var/log/application.log | tail -n 50",
+      "category": "Linux",
+      "tags": "grep, log, error, search",
+      "description": "アプリケーションログからERRORまたはFATALを含む最新50行を抽出",
+      "language": "bash"
+    },
+    {
+      "title": "Linux find large recent files",
+      "content": "find /home -type f -size +100M -mtime -7 -exec ls -lh {} \\;",
+      "category": "Linux",
+      "tags": "find, search, size, date",
+      "description": "7日以内に更新された100MB以上のファイルを検索して詳細表示",
+      "language": "bash"
+    },
+    {
+      "title": "Linux monitor CPU usage",
+      "content": "watch -n 2 'ps aux | sort -nrk 3 | head -10'",
+      "category": "Linux",
+      "tags": "process, cpu, monitor, watch",
+      "description": "2秒ごとにCPU使用率トップ10のプロセスを表示",
+      "language": "bash"
+    },
+    {
+      "title": "Linux disk usage check",
+      "content": "# ディレクトリごとのサイズ\ndu -sh /* 2>/dev/null | sort -rh | head -20\n\n# ファイルシステムの使用状況\ndf -h",
+      "category": "Linux",
+      "tags": "disk, usage, du, df",
+      "description": "ディスク使用量の多いディレクトリトップ20とファイルシステムの状況",
+      "language": "bash"
+    },
+    {
+      "title": "Python sort dictionary by value",
+      "content": "# 値でソート（昇順）\nsorted_dict = dict(sorted(my_dict.items(), key=lambda x: x[1]))\n\n# 値でソート（降順）\nsorted_dict = dict(sorted(my_dict.items(), key=lambda x: x[1], reverse=True))\n\n# ネストした辞書\ndata = [{'name': 'Alice', 'age': 30}, {'name': 'Bob', 'age': 25}]\nsorted_data = sorted(data, key=lambda x: x['age'])",
+      "category": "Python",
+      "tags": "sort, dictionary, lambda",
+      "description": "辞書を値でソートする各種パターン",
+      "language": "python"
+    },
+    {
+      "title": "Python list comprehension patterns",
+      "content": "# 基本的なフィルタリング\neven_numbers = [x for x in range(100) if x % 2 == 0]\n\n# 条件付き変換\nresult = [x if x > 0 else 0 for x in numbers]\n\n# ネストしたリストのフラット化\nflat = [item for sublist in nested_list for item in sublist]\n\n# 辞書内包表記\nsquares = {x: x**2 for x in range(10)}",
+      "category": "Python",
+      "tags": "list comprehension, filter, map",
+      "description": "Pythonのリスト内包表記の便利なパターン集",
+      "language": "python"
+    },
+    {
+      "title": "Nginx basic SSL config",
+      "content": "server {\n    listen 80;\n    server_name example.com www.example.com;\n    return 301 https://$server_name$request_uri;\n}\n\nserver {\n    listen 443 ssl http2;\n    server_name example.com;\n    \n    ssl_certificate /etc/nginx/ssl/cert.pem;\n    ssl_certificate_key /etc/nginx/ssl/key.pem;\n    \n    root /var/www/html;\n    index index.html index.php;\n    \n    gzip on;\n    gzip_types text/plain text/css application/json;\n    \n    location / {\n        try_files $uri $uri/ /index.php?$query_string;\n    }\n}",
+      "category": "設定",
+      "tags": "nginx, config, ssl, https",
+      "description": "SSL対応のNginx基本設定テンプレート",
+      "language": "conf"
+    }
+  ]
+}
