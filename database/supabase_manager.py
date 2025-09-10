@@ -10,7 +10,11 @@ from contextlib import contextmanager
 import json
 import logging
 
-from supabase import create_client, Client
+# Supabaseインポート（バージョン互換性対応）
+try:
+    from supabase import create_client, Client
+except ImportError:
+    from supabase.client import create_client, Client
 
 # プロジェクトルートからのimport
 import sys
@@ -44,8 +48,8 @@ class SupabaseManager:
             self.supabase_key = st.secrets.get('SUPABASE_ANON_KEY')
             if self.supabase_url and self.supabase_key:
                 self.logger.info("Using Streamlit secrets for Supabase connection")
-        except Exception:
-            pass
+        except Exception as e:
+            self.logger.debug(f"Streamlit secrets not available: {e}")
         
         # 2. 環境変数から取得を試みる
         if not self.supabase_url or not self.supabase_key:
@@ -61,12 +65,38 @@ class SupabaseManager:
                 "See: https://docs.streamlit.io/library/advanced-features/secrets-management"
             )
         
-        # Supabaseクライアント初期化
-        self.client: Client = create_client(self.supabase_url, self.supabase_key)
+        # Supabaseクライアント初期化（エラーハンドリング付き）
+        self._initialize_client()
         
         # データベース初期化
         self.init_database()
-        self.logger.info("SupabaseManager initialized")
+        self.logger.info("SupabaseManager initialized successfully")
+    
+    def _initialize_client(self):
+        """
+        Supabaseクライアントを初期化（バージョン互換性対応）
+        """
+        try:
+            # 標準的な初期化を試みる
+            self.client = create_client(self.supabase_url, self.supabase_key)
+            self.logger.debug("Supabase client initialized with standard method")
+        except TypeError as e:
+            # TypeErrorの場合、パラメータ名を明示的に指定
+            if 'proxy' in str(e):
+                self.logger.warning("Proxy parameter not supported, retrying without it")
+                try:
+                    # 直接Clientクラスを使用
+                    from supabase.client import Client as SupabaseClient
+                    self.client = SupabaseClient(self.supabase_url, self.supabase_key)
+                    self.logger.debug("Supabase client initialized with Client class directly")
+                except Exception as retry_error:
+                    self.logger.error(f"Failed to initialize client: {retry_error}")
+                    raise ValueError(f"Cannot initialize Supabase client: {retry_error}")
+            else:
+                raise ValueError(f"Unexpected error initializing Supabase client: {e}")
+        except Exception as e:
+            self.logger.error(f"Failed to initialize Supabase client: {e}")
+            raise ValueError(f"Supabase initialization error: {e}")
     
     def get_connection(self):
         """
@@ -294,23 +324,14 @@ class SupabaseManager:
     
     def search_snippets(self, keyword: str) -> List[Dict]:
         """
-        全文検索の実装（PostgreSQLの全文検索を使用）
+        全文検索の実装（シンプルな検索関数を使用）
         """
         try:
-            # Supabaseの検索RPC関数を呼び出す（シンプル版を使用）
+            # Supabaseの検索RPC関数を呼び出す（search_snippets_simple使用）
             result = self.client.rpc('search_snippets_simple', {'keyword': keyword}).execute()
             
-            if not result.data:
-                # RPC関数がない場合は通常の検索
-                search_pattern = f"%{keyword}%"
-                result = self.client.table('snippets').select('*').or_(
-                    f"title.ilike.{search_pattern},"
-                    f"content.ilike.{search_pattern},"
-                    f"tags.ilike.{search_pattern},"
-                    f"description.ilike.{search_pattern}"
-                ).execute()
-            
-            return result.data
+            # データが返ってきた場合はそのまま返す
+            return result.data if result.data else []
             
         except Exception as e:
             self.logger.error(f"Search failed: {e}")

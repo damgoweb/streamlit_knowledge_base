@@ -1,4 +1,4 @@
 # Knowledge Base Application Requirements
 streamlit==1.29.0
-supabase==2.3.0
+supabase==2.0.0
 python-dotenv==1.0.0
